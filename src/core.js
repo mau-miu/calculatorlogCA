@@ -1,3 +1,5 @@
+import {message} from "antd";
+
 const dim = 8;
 
 const split = (X, Y) => {
@@ -51,67 +53,139 @@ const extract = (S) =>{
     }
     return Y
 }
-
-export const countAnd = () =>{
-    let X = [0,0,0,0,1,1,1,1];
-    let Y = [0,0,1,1,0,0,1,1];
-    let M_and = clltmt_z(split(X,Y), 192, 1)
-
-    return extract(M_and[M_and.length-1])
+const checkValidation = (expression) => {
+    if(expression.length!=17){
+        message.error("Введены неверные данные");
+        return false;
+    }
+    return true
 }
-export const countOr = () =>{
-    let X = [0,0,0,0,1,1,1,1];
-    let Y = [0,0,1,1,0,0,1,1];
-    let M_or = clltmt_z(split(X,Y), 252, 1)
 
-    return extract(M_or[M_or.length-1])
+const checkValidationNot = (expression) => {
+    if(expression.length!=9){
+        message.error("Введены неверные данные");
+        return false;
+    }
+    return true
 }
-export const countNot = () =>{
-    let X = [1,1,1,1,1,1,1,1];
-    let Y = [1,0,1,0,1,0,1,0];
-    let M_not = clltmt_z(split(X,Y), 60, 1)
 
-    return extract(M_not[M_not.length-1])
+const getXFromExpression = (expression, operator) =>{
+    let X = expression.split(operator);
+    return X[0];
 }
-export const countShef = () =>{
-    let X = [0,0,0,0,1,1,1,1];
-    let Y = [0,0,1,1,0,0,1,1];
-    let M_shef = clltmt_z(split(X,Y), 63, 1)
 
-    return extract(M_shef[M_shef.length-1])
+const getYFromExpression = (expression, operator) =>{
+    let X = expression.split(operator);
+    return X[1];
 }
-export const countPirs = () =>{
-    let X = [0,0,0,0,1,1,1,1];
-    let Y = [0,0,1,1,0,0,1,1];
-    let M_pirs = clltmt_z(split(X,Y), 3, 1)
 
-    return extract(M_pirs[M_pirs.length-1])
+export const countAnd = (expression, operator) =>{
+    if(!checkValidation(expression))
+        message.error("Введите новые данные"+operator)
+    else{
+        let X = Array.from(getXFromExpression(expression, operator));
+        let Y = Array.from(getYFromExpression(expression, operator));
+        let M_and = clltmt_z(split(X,Y), 192, 1)
+        return extract(M_and[M_and.length-1])
+    }
 }
-export const countXor = () =>{
-    let X = [0,0,0,0,1,1,1,1];
-    let Y = [0,0,1,1,0,0,1,1];
-    let M_xor = clltmt_z(split(X,Y), 60, 1)
-
-    return extract(M_xor[M_xor.length-1])
+export const countOr = (expression, operator) =>{
+    if(!checkValidation(expression))
+        message.error("Введите новые данные"+operator)
+    else
+    {
+        let X = Array.from(getXFromExpression(expression, operator));
+        let Y = Array.from(getYFromExpression(expression, operator));
+        let M_or = clltmt_z(split(X,Y), 252, 1)
+        return extract(M_or[M_or.length-1])
+    }
 }
-export const countImpl = () =>{
-    let X = [0,0,0,0,1,1,1,1];
-    let Y = [0,0,1,1,0,0,1,1];
-    let M_impl = clltmt_z(split(X,Y), 207, 1)
+export const countNot = (expression, operator) =>{
+    if(!checkValidationNot(expression))
+        message.error("Введите новые данные"+operator)
+    else
+    {
+        let X = [1,1,1,1,1,1,1,1];
+        let Y = Array.from(getYFromExpression(expression, operator));
+        let M_not = clltmt_z(split(X,Y), 60, 1)
 
-    return extract(M_impl[M_impl.length-1])
+        return extract(M_not[M_not.length-1])
+    }
 }
-export const countInvImpl = () =>{
-    let X = [0,0,0,0,1,1,1,1];
-    let Y = [0,0,1,1,0,0,1,1];
-    let M_inv_impl = clltmt_z(split(X,Y), 243, 1)
+export const countShef = (expression, operator) =>{
+    if(!checkValidation(expression))
+        message.error("Введите новые данные"+operator)
+    else
+    {
+        let X = Array.from(getXFromExpression(expression, operator));
+        let Y = Array.from(getYFromExpression(expression, operator));
+        let M_shef = clltmt_z(split(X,Y), 63, 1)
 
-    return extract(M_inv_impl[M_inv_impl.length-1])
+        return extract(M_shef[M_shef.length-1])
+    }
+
 }
-export const countEkv = () =>{
-    let X = [0,0,0,0,1,1,1,1];
-    let Y = [0,0,1,1,0,0,1,1];
-    let M_ekv = clltmt_z(split(X,Y), 195, 1)
+export const countPirs = (expression, operator) =>{
+    if(!checkValidation(expression))
+        message.error("Введите новые данные"+operator)
+    else
+    {
+        let X = Array.from(getXFromExpression(expression, operator));
+        let Y = Array.from(getYFromExpression(expression, operator));
+        let M_pirs = clltmt_z(split(X,Y), 3, 1)
 
-    return extract(M_ekv[M_ekv.length-1])
+        return extract(M_pirs[M_pirs.length-1])
+    }
+
+}
+export const countXor = (expression, operator) =>{
+    if(!checkValidation(expression))
+        message.error("Введите новые данные"+operator)
+    else
+    {
+        let X = Array.from(getXFromExpression(expression, operator));
+        let Y = Array.from(getYFromExpression(expression, operator));
+        let M_xor = clltmt_z(split(X,Y), 60, 1)
+
+        return extract(M_xor[M_xor.length-1])
+    }
+
+}
+export const countImpl = (expression, operator) =>{
+    if(!checkValidation(expression))
+        message.error("Введите новые данные"+operator)
+    else
+    {
+        let X = Array.from(getXFromExpression(expression, operator));
+        let Y = Array.from(getYFromExpression(expression, operator));
+        let M_impl = clltmt_z(split(X,Y), 207, 1)
+
+        return extract(M_impl[M_impl.length-1])
+    }
+
+}
+export const countInvImpl = (expression, operator) =>{
+    if(!checkValidation(expression))
+        message.error("Введите новые данные"+operator)
+    else
+    {
+        let X = Array.from(getXFromExpression(expression, operator));
+        let Y = Array.from(getYFromExpression(expression, operator));
+        let M_inv_impl = clltmt_z(split(X,Y), 243, 1)
+
+        return extract(M_inv_impl[M_inv_impl.length-1])
+    }
+
+}
+export const countEkv = (expression, operator) =>{
+    if(!checkValidation(expression))
+        message.error("Введите новые данные"+operator)
+    else
+    {
+        let X = Array.from(getXFromExpression(expression, operator));
+        let Y = Array.from(getYFromExpression(expression, operator));
+        let M_ekv = clltmt_z(split(X,Y), 195, 1)
+
+        return extract(M_ekv[M_ekv.length-1])
+    }
 }

@@ -38,39 +38,39 @@ const Keyboard = (props) => {
        if(props.expression)
        {
            if(props.expression.includes('\u2227')){
-               const result = countAnd()
+               const result = countAnd(props.expression, '\u2227')
                message.success(result)
            }
            else if(props.expression.includes('\u2228')){
-               const result = countOr()
+               const result = countOr(props.expression, '\u2228')
                message.success(result)
            }
            else if(props.expression.includes('\u00AC')){
-               const result = countNot()
+               const result = countNot(props.expression, '\u00AC')
                message.success(result)
            }
            else if(props.expression.includes('\u2223')){
-               const result = countShef()
+               const result = countShef(props.expression, '\u2223')
                message.success(result)
            }
            else if(props.expression.includes('\u2193')){
-               const result = countPirs()
+               const result = countPirs(props.expression, '\u2193')
                message.success(result)
            }
            else if(props.expression.includes('\u2295')){
-               const result = countXor()
+               const result = countXor(props.expression, '\u2295')
                message.success(result)
            }
            else if(props.expression.includes('\u2192')){
-               const result = countImpl()
+               const result = countImpl(props.expression, '\u2192')
                message.success(result)
            }
            else if(props.expression.includes('\u2190')){
-               const result = countInvImpl()
+               const result = countInvImpl(props.expression, '\u2190')
                message.success(result)
            }
            else if(props.expression.includes('\u27F7')){
-               const result = countEkv()
+               const result = countEkv(props.expression, '\u27F7')
                message.success(result)
            }
            else{
